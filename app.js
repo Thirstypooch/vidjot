@@ -1,7 +1,18 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const mongoose = require('mongoose');
 
 const app = express();
+
+//Map global promise - getting rid of warning on Traversy version
+//mongoose.Promise = global.Promise;
+//Connection to mongoose
+mongoose.connect('mongodb://localhost/vidjot-dev', {
+    //useMongoClient: true
+    useNewUrlParser: true
+})
+    .then(() => console.log('MongoDB connected...'))
+    .catch(err => console.log(err));
 
 //Handlebars Middleware
 app.engine('handlebars', exphbs({
