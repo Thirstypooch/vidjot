@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-//const passport = require('passport');
+const passport = require('passport');
 const router = express.Router();
 
 //Load user model
@@ -18,7 +18,17 @@ router.get('/register', (req, res) => {
     res.render('users/register');
 });
 
-//Regsiter Form POST
+//Login Form POST
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect:'/ideas',
+        failureRedirect:'/users/login',
+        failureFlash: true
+    })(req, res, next);
+});
+
+
+//Register Form POST
 router.post('/register', (req, res) => {
     let errors = [];
 
